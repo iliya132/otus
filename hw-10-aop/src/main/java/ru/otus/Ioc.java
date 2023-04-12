@@ -30,7 +30,7 @@ public class Ioc {
 
     private record LoggerInvocationHandler<T>(T instance, Class<T> clazz) implements InvocationHandler {
         //static для случаев создания большого количества инстансов одного типа
-        private static final Map<Method, Boolean> isAnnotatedWithLog = new HashMap<>();
+        private static final Map<Method, Boolean> annotatedWithLog = new HashMap<>();
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -41,7 +41,7 @@ public class Ioc {
         }
 
         private Boolean isAnnotatedCached(Method method) {
-            var isAnnotatedWithLogCache = isAnnotatedWithLog.get(method);
+            var isAnnotatedWithLogCache = annotatedWithLog.get(method);
             if (isAnnotatedWithLogCache == null) {
                 String methodName = method.getName();
                 var params = method.getParameters();
@@ -52,7 +52,7 @@ public class Ioc {
                         .findFirst().orElseThrow();
                 boolean isAnnotated = implMethod.isAnnotationPresent(Log.class);
                 System.out.println("stored cache value for " + method.getName() + " [" + isAnnotated + "]");
-                isAnnotatedWithLog.put(method, isAnnotated);
+                annotatedWithLog.put(method, isAnnotated);
                 return isAnnotated;
             } else {
                 System.out.println("got cached value for " + method.getName());
