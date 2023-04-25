@@ -4,6 +4,7 @@ include("hw03-reflection")
 include("hw-08-gc")
 include("hw-10-aop")
 include("hw-12-atm")
+include("hw-15-structuralPatterns")
 
 pluginManagement {
     val jgitver: String by settings
