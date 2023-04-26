@@ -15,7 +15,7 @@ public class HomeWork {
 
     public static void main(String[] args) {
         var processors = List.of(new ProcessorSwap(),
-                new LoggerProcessor(new ProcessorEvenThrows(LocalDateTime.now()::getSecond)));
+                new LoggerProcessor(new ProcessorEvenThrows(() -> LocalDateTime.now().getSecond())));
 
         var complexProcessor = new ComplexProcessor(processors, ex -> System.out.println(ex.getMessage()));
         var listenerPrinter = new ListenerPrinterConsole();
