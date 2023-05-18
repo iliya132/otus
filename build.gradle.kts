@@ -9,6 +9,7 @@ plugins {
     id("fr.brouillard.oss.gradle.jgitver")
     id("io.spring.dependency-management")
     id("org.springframework.boot") apply false
+    kotlin("jvm") version "1.8.21"
 }
 
 idea {
@@ -105,4 +106,10 @@ tasks {
                 .map { "${it.key}:${it.value}" }.forEach(::println)
         }
     }
+}
+dependencies {
+    implementation(kotlin("stdlib"))
+}
+repositories {
+    mavenCentral()
 }
