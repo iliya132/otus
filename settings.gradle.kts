@@ -5,6 +5,7 @@ include("hw-08-gc")
 include("hw-10-aop")
 include("hw-12-atm")
 include("hw-19-jdbc")
+include("hw-21-jpql")
 
 pluginManagement {
     val jgitver: String by settings
