@@ -63,28 +63,17 @@ public class HWCacheDemo {
         // ACT
         transactionRunner.doInTransaction((status) -> {
             var serviceClient = generateTestData(dbExecutor, transactionRunner);
-            MyCache<Long, Client> cache = new MyCache<>();
-            cache.addListener(new HwListener<Long, Client>() {
-                @Override
-                public void notify(Long key, Client value, String action) {
-                    logger.info("key:{}, value:{}, action: {}", key, value, action);
-                }
-            });
+            var cachedServiceClient = new DbServiceClientCachedImpl(serviceClient);
 
             // result is "raw load from db finished in 1861ms"
             measureGet("raw load from db", (id) ->
                     // .orElseThrow потому что не тема ДЗ - тут есть уверенность что такая сущность есть
-                    serviceClient.getClient(id).orElseThrow()
+                    cachedServiceClient.getClient(id).orElseThrow()
             );
             // result is "using cache finished in 869ms"
-            measureGet("using cache", (id) -> {
-                var cached = cache.get(id);
-                if (cached != null) return cached;
-                // .orElseThrow потому что не тема ДЗ - тут есть уверенность что такая сущность есть
-                var fromDb = serviceClient.getClient(id).orElseThrow();
-                cache.put(id, fromDb);
-                return fromDb;
-            });
+            measureGet("using cache", (id) ->
+                    cachedServiceClient.getClient(id).orElseThrow()
+            );
             return null;
         });
     }
