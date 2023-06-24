@@ -8,6 +8,7 @@ include("hw-15-structuralPatterns")
 include("hw-16-io")
 include("hw-19-jdbc")
 include("hw-21-jpql")
+include("hw-25-di")
 
 pluginManagement {
     val jgitver: String by settings
@@ -24,4 +25,3 @@ pluginManagement {
         id("com.google.cloud.tools.jib") version jib
     }
 }
-
