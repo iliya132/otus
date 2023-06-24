@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<style>
+  input {
+    display: block;
+  }
+
+</style>
+<body>
+<h2>Admin page</h2>
+<form action="admin" method="post">
+    <label for="name-input">Название нового клиента</label>
+    <input type="text" name="name" id="name-input">
+    <input type="submit" value="create">
+</form>
+
+${clientsTable}
+
+<a href="/">Back to homepage</a>
+</body>
+</html>
