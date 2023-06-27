@@ -8,6 +8,8 @@ include("hw-15-structuralPatterns")
 include("hw-16-io")
 include("hw-19-jdbc")
 include("hw-21-jpql")
+include("hw-22-cache")
+include("hw-24-web-server")
 include("hw-25-di")
 
 pluginManagement {
