@@ -10,6 +10,7 @@ include("hw-19-jdbc")
 include("hw-21-jpql")
 include("hw-22-cache")
 include("hw-24-web-server")
+include("hw-25-di")
 include("hw-28-spring-jdbc")
 
 pluginManagement {
@@ -27,4 +28,3 @@ pluginManagement {
         id("com.google.cloud.tools.jib") version jib
     }
 }
-
