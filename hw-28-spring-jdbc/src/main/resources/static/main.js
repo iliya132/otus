@@ -1,10 +1,17 @@
 function postNewClient() {
-    let name = document.getElementById('name-input').value
-    fetch("/api/create-client", {
+    let name = document.getElementById('name-input').value;
+    let address = document.getElementById('address-input').value;
+    let phone = document.getElementById('phones-input').value;
+    let data = {
+        name: name,
+        address: address,
+        phone: phone
+    };
+    fetch('/api/create-client', {
         method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-        body: name
-    }).then(resp => window.location.reload())
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(resp => window.location.reload());
 }

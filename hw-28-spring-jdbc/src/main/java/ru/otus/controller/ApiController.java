@@ -5,23 +5,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.otus.models.Client;
-import ru.otus.repository.IClientRepository;
+import ru.otus.models.ClientDto;
+import ru.otus.services.ClientService;
 
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
-    private final IClientRepository clientRepository;
+    private final ClientService clientService;
 
     @Autowired
-    public ApiController(IClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ApiController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
-    @PostMapping(value = "/create-client", consumes = "text/plain")
-    public String createClient(@RequestBody String name) {
-        clientRepository.save(new Client(name));
+    @PostMapping(value = "/create-client")
+    public String createClient(@RequestBody ClientDto clientDto) {
+        clientService.save(clientDto);
         return "/index";
     }
 }

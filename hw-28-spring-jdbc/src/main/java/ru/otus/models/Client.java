@@ -1,66 +1,63 @@
 package ru.otus.models;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.lang.NonNull;
 
-import java.time.LocalDateTime;
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Table("client")
-public class Client {
+public class Client implements Cloneable {
 
     @Id
     private Long id;
-    @NonNull
+
     private String name;
-    @NonNull
-    private LocalDateTime createdAt;
 
-    public Client(Long id, String name, LocalDateTime createdAt) {
+    @MappedCollection(idColumn = "client_id")
+    private Address address;
+
+    @MappedCollection(idColumn = "client_id", keyColumn = "id")
+    private List<Phone> phones;
+
+    @PersistenceCreator
+    public Client(Long id, String name, Address address, List<Phone> phones) {
         this.id = id;
         this.name = name;
-        this.createdAt = createdAt;
+
+        if (address != null) {
+            this.address = address.clone();
+            this.address.setClient(this);
+        }
+        if (phones != null) {
+            this.phones = new ArrayList<>();
+            phones.forEach(phone -> {
+                var phoneCopy = phone.clone();
+                phoneCopy.setClient(this);
+                this.phones.add(phoneCopy);
+            });
+        }
     }
 
-    public Client(Long id, String name) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = LocalDateTime.now();
+    @Override
+    public Client clone() {
+        return new Client(this.id, this.name, this.address, this.phones);
     }
 
-    public Client(String name) {
-        this.id = null;
-        this.name = name;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public Client() {
-        this.id = null;
-        this.name = "";
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

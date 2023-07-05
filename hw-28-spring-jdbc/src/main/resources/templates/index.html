@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="/main.css" />
     <script src="/main.js"></script>
 </head>
 <body>
@@ -11,6 +11,8 @@
 <form action="/api/create-client" method="post">
     <label for="name-input">Please enter new client name</label>
     <input type="text" name="name" id="name-input">
+    <input type="text" name="address" id="address-input">
+    <input type="text" name="phone" id="phones-input">
     <input type="button" onclick="postNewClient()" value="Submit">
 </form>
 <table>
@@ -18,15 +20,17 @@
     <tr>
         <th>id</th>
         <th>name</th>
-        <th>created_at</th>
+        <th>address</th>
+        <th>phone</th>
     </tr>
     </thead>
     <tbody>
-        <tr th:each="client: ${clients}">
-            <td th:text="${client.id}"/>
-            <td th:text="${client.name}"/>
-            <td th:text="${client.createdAt}"/>
-        </tr>
+    <tr th:each="client: ${clients}">
+        <td th:text="${client.id}" />
+        <td th:text="${client.name}" />
+        <td th:text="${client.address}" />
+        <td th:text="${client.phone}" />
+    </tr>
     </tbody>
 </table>
 </body>
