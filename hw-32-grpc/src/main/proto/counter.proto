@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ru.otus.protobuf.generated;
+
+option java_multiple_files = true;
+
+message CounterRequest {
+    int64 firstValue = 1;
+    int64 lastValue = 2;
+}
+
+message CounterResponse {
+    int64 count = 1;
+}
+
+service RemoteCounterService {
+    rpc count(CounterRequest) returns (stream CounterResponse);
+}
