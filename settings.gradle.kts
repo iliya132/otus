@@ -12,6 +12,7 @@ include("hw-22-cache")
 include("hw-24-web-server")
 include("hw-25-di")
 include("hw-28-spring-jdbc")
+include("hw-31-concurrent-collections")
 include("hw-32-grpc")
 
 pluginManagement {
