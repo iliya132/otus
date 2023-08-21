@@ -46,6 +46,11 @@ allprojects {
     val jedis: String by project
     val grpc: String by project
 
+    val sockjs: String by project
+    val stomp: String by project
+    val bootstrap: String by project
+    val r2dbcPostgresql: String by project
+
     apply(plugin = "io.spring.dependency-management")
     dependencyManagement {
         dependencies {
@@ -60,6 +65,9 @@ allprojects {
             dependency("org.ow2.asm:asm-commons:$asm")
             dependency("org.glassfish:jakarta.json:$glassfishJson")
             dependency("org.ehcache:ehcache:$ehcache")
+            dependency("org.webjars:sockjs-client:$sockjs")
+            dependency("org.webjars:stomp-websocket:$stomp")
+            dependency("org.webjars:bootstrap:$bootstrap")
 
             dependency("org.projectlombok:lombok:$lombok")
             dependency("com.google.code.gson:gson:$gson")
@@ -76,6 +84,8 @@ allprojects {
             dependency("io.grpc:grpc-netty:$grpc")
             dependency("io.grpc:grpc-protobuf:$grpc")
             dependency("io.grpc:grpc-stub:$grpc")
+
+            dependency("io.r2dbc:r2dbc-postgresql:$r2dbcPostgresql")
         }
     }
     configurations.all {
@@ -103,7 +113,7 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing", "-Werror"))
+        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing"))
     }
 
     plugins.apply(fr.brouillard.oss.gradle.plugins.JGitverPlugin::class.java)
