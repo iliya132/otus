@@ -14,6 +14,8 @@ include("hw-25-di")
 include("hw-28-spring-jdbc")
 include("hw-31-concurrent-collections")
 include("hw-32-grpc")
+include("hw-37-webflux:client-service")
+include("hw-37-webflux:datastore-service")
 
 pluginManagement {
     val jgitver: String by settings
